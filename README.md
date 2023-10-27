@@ -9,8 +9,9 @@ If the student answers the question correctly it is counted as a *win* for the s
 
 Both contestants having the exact same Elo rating in this context meaning they have equal chances of winning this match, 50% each. A lower rated contestant would therefore have a lower chance of winning against a higher rated one. Different Elo systems use different ways for calculating the chances of winning (expected score) but they usually involve some kind of [logistic](https://en.wikipedia.org/wiki/Logistic_function) or more generally [sigmoid function](https://en.wikipedia.org/wiki/Sigmoid_function).
 
-## Asymmetry
-The original El rating assumes 
+## Disadvantages of the Elo rating
+### Asymmetry
+The traditional Elo rating suggests a symmetrical view on both contestants. Contestant A playing against contestant B is the same as B playing against A. This doesn't hold true in a learning situation, the student answering the question is not the same as the question answering the student, in fact that doesn't make any sense at all.
 
 ## Assumptions
 * Students and questions each hold an integer number to respresent their *strength* and *difficulty* respectively.
