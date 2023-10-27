@@ -11,6 +11,13 @@ Both contestants having the exact same Elo rating in this context meaning they h
 
 ## Asymmetry
 The original El rating assumes 
+
+## Assumptions
 * Both, students and questions, get a integer number to respresent their *strength* and *difficulty* respectively.
 * A student having the same rating as the question should represent a 99% chance of the student answering that question correctly.
 * A student having half the rating of a question should represent a 50% chance of the student answering that question correctly.
+
+* Students who answered a lot of questions within the system have a higher impact on adjusting question ratings.
+* Questions that have been answered a lot will be affected less by students answering them.
+
+* The rating update doesn't have to be a [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game).
