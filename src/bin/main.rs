@@ -5,12 +5,13 @@ use adaptive_elo_game::{Question, RandomNormalGen, Student};
 use rand::{rngs::SmallRng, Rng, SeedableRng};
 
 fn main() {
-    let student_amount: usize = 10;
-    let question_amount: usize = 10000;
-    let iterations: usize = 1000;
+    let student_amount: usize = 20;
+    let question_amount: usize = 20;
+    let iterations: usize = 100;
 
-    let mut rng = RandomNormalGen::new(1600.0, 400.0);
+    let mut rng = RandomNormalGen::new(800.0, 200.0);
     let mut students = get_n_random_students(student_amount, &mut rng);
+    let mut rng = RandomNormalGen::new(1600.0, 100.0);
     let questions = get_n_random_questions(question_amount, &mut rng);
 
     students.iter().for_each(|student| {
@@ -37,14 +38,24 @@ fn main() {
             student.estimated_elo, student.real_elo
         )
     });
+
+    questions.iter().for_each(|question| {
+        let q = question.lock().unwrap();
+        println!(
+            "QUESTION: Rating: {}, Actual Elo: {}",
+            q.estimated_elo, q.real_elo
+        )
+    });
 }
 
 fn get_n_random_students(n: usize, rng: &mut RandomNormalGen) -> Vec<Student> {
     (0..n).map(|_| Student::new(rng.get_u32())).collect()
 }
 
-fn get_n_random_questions(n: usize, rng: &mut RandomNormalGen) -> Vec<Arc<Mutex<Question>>> {
+fn get_n_random_questions(n: usize, _rng: &mut RandomNormalGen) -> Vec<Arc<Mutex<Question>>> {
+    let mut rng = rand::thread_rng();
+
     (0..n)
-        .map(|_| Arc::new(Mutex::new(Question::new(rng.get_u32()))))
+        .map(|_| Arc::new(Mutex::new(Question::new(rng.gen_range(400..1800)))))
         .collect()
 }
