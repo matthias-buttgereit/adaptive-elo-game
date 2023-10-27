@@ -13,8 +13,8 @@ Both contestants having the exact same Elo rating in this context meaning they h
 The original El rating assumes 
 
 ## Assumptions
-* Both, students and questions, get a integer number to respresent their *strength* and *difficulty* respectively.
-* A student having the same rating as the question should represent a 99% chance of the student answering that question correctly.
+* Students and questions each hold an integer number to respresent their *strength* and *difficulty* respectively.
+* A student having the same rating as a question should represent a 99% chance of the student answering that question correctly.
 * A student having half the rating of a question should represent a 50% chance of the student answering that question correctly.
 
 * Students who answered a lot of questions within the system have a higher impact on adjusting question ratings.
