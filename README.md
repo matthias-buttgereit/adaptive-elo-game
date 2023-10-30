@@ -25,4 +25,4 @@ The traditional Elo rating suggests a symmetrical view on both contestants. Cont
 * Students who answered a lot of questions within the system have a higher impact on adjusting question ratings.
 * Questions that have been answered a lot will be affected less by students answering them.
 
-* The rating update doesn't have to be a [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game).
+* The rating update doesn't have to be a [zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game). If a student gains rating for answering a question correctly, the question doesn't have to lose the same amount of rating.
