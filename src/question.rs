@@ -8,6 +8,7 @@ pub struct Question {
 }
 
 impl Question {
+    #[must_use]
     pub fn new(elo: f64) -> Self {
         Self {
             real_elo: elo,
@@ -16,16 +17,24 @@ impl Question {
         }
     }
 
+    #[must_use]
     pub fn get_n_random_questions(n: usize, mean: f64, std_dev: f64) -> Vec<Self> {
         let mut questions = Vec::with_capacity(n);
         let mut rng = SmallRng::from_entropy();
         let distr = Normal::new(mean, std_dev).unwrap();
 
-        for _ in 0..n {
+        (0..n).for_each(|_| {
             let random_elo: f64 = distr.sample(&mut rng);
-
             questions.push(Self::new(random_elo));
-        }
+        });
         questions
+    }
+
+    pub fn get_elo(&self) -> f64 {
+        self.estimated_elo
+    }
+
+    pub fn increment_age(&mut self) {
+        self.age += 1;
     }
 }
