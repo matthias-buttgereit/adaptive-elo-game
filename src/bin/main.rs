@@ -2,12 +2,12 @@ use colored::Colorize;
 use rayon::prelude::*;
 use std::sync::{Arc, Mutex};
 
-use adaptive_elo_game::{Question, Student, adaptive::adjust_rating};
+use adaptive_elo_game::{adaptive::adjust_rating, Question, Student};
 use rand::{rngs::SmallRng, Rng, SeedableRng};
 
 const STUDENT_AMOUNT: usize = 10;
 const QUESTION_AMOUNT: usize = 30;
-const ITERATIONS: usize = 100;
+const ITERATIONS: usize = 3;
 
 fn main() {
     let (mut students, questions) = get_students_and_questions(STUDENT_AMOUNT, QUESTION_AMOUNT);
@@ -33,6 +33,7 @@ fn main() {
 fn print_errors(errors: &[[(f64, f64); STUDENT_AMOUNT]]) {
     (0..STUDENT_AMOUNT).for_each(|i| {
         let mut error_before: f64 = 0.0;
+
         errors.iter().for_each(|array| {
             let (elo, error) = array[i];
 
@@ -62,14 +63,18 @@ fn push_elo_errors(errors: &mut Vec<[(f64, f64); STUDENT_AMOUNT]>, students: &[S
     errors.push(
         students
             .iter()
-            .map(|s| (s.estimated_elo, (s.estimated_elo - s.real_elo).abs() * 100.0 / s.real_elo))
+            .map(|s| {
+                (
+                    s.estimated_elo,
+                    (s.estimated_elo - s.real_elo).abs() * 100.0 / s.real_elo,
+                )
+            })
             .collect::<Vec<_>>()
             .try_into()
             .unwrap(),
     );
 }
 
-#[must_use]
 fn get_students_and_questions(
     student_amount: usize,
     question_amount: usize,

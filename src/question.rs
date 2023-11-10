@@ -8,7 +8,6 @@ pub struct Question {
 }
 
 impl Question {
-    #[must_use]
     pub fn new(elo: f64) -> Self {
         Self {
             real_elo: elo,
@@ -17,7 +16,6 @@ impl Question {
         }
     }
 
-    #[must_use]
     pub fn get_n_random_questions(n: usize, mean: f64, std_dev: f64) -> Vec<Self> {
         let mut questions = Vec::with_capacity(n);
         let mut rng = SmallRng::from_entropy();

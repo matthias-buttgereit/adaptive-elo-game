@@ -3,10 +3,7 @@ use std::sync::{Arc, Mutex};
 use rand::{rngs::SmallRng, Rng, SeedableRng};
 use rand_distr::{Distribution, Normal};
 
-use crate::{
-    adaptive::probability,
-    Question,
-};
+use crate::{adaptive::probability, Question};
 
 pub struct Student {
     pub real_elo: f64,
@@ -15,7 +12,6 @@ pub struct Student {
 }
 
 impl Student {
-    #[must_use]
     pub fn new(elo: f64) -> Self {
         Self {
             real_elo: elo,
@@ -24,7 +20,6 @@ impl Student {
         }
     }
 
-    #[must_use]
     pub fn get_n_random_students(n: usize, mean: f64, std_dev: f64) -> Vec<Self> {
         let mut students = Vec::with_capacity(n);
         let mut rng = SmallRng::from_entropy();
@@ -38,7 +33,6 @@ impl Student {
         students
     }
 
-    #[must_use]
     pub fn solve_task(&mut self, task: &Arc<Mutex<Question>>, rng: &mut SmallRng) -> bool {
         let task: &mut Question = &mut task.lock().unwrap();
 
